@@ -1,0 +1,12 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.rocnubie/ads-ai-creator-mcp",
+  "title": "Ads AI Creator MCP",
+  "description": "Ads AI Creator generates ad creatives, copy, and visuals using AI so marketers can iterate on",
+  "version": "0.1.0",
+  "websiteUrl": "https://adsaicreator.com",
+  "repository": {
+    "url": "https://github.com/rocnubie/ads-ai-creator-mcp",
+    "source": "github"
+  }
+}
