@@ -1,16 +1,19 @@
-# Ads AI Creator MCP
+# Ads AI Creator MCP Server
 
-A minimal, read-only MCP for Ads AI Creator.
+> Ads AI Creator - Generate Ads with AI
 
-This package is generated from the MSA multi-site system and is built for one very specific job:
-- provide a real MCP that can be installed and indexed
-- keep the setup simple with local `stdio`
-- avoid backend integration and API quota costs
-- send users back to the official Ads AI Creator website
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Read Only](https://img.shields.io/badge/server-read--only-2ea44f)](#tools)
+[![MCP](https://img.shields.io/badge/MCP-1.0-blue)](https://modelcontextprotocol.io)
+
+<p align="center"><a href="https://adsaicreator.com"><img src="./assets/hero.webp" alt="Ads AI Creator" width="720" /></a></p>
+
+A Model Context Protocol server that exposes the canonical Ads AI Creator knowledge surface — image generation workflows and styles, pricing, FAQ, official links — to MCP-compatible AI clients such as Claude Desktop, Cursor, Windsurf, and Continue. Read-only, no API keys, no quota, ~50 ms cold start.
 
 Official website: https://adsaicreator.com
 
-## About Ads AI Creator
+## 🎨 About Ads AI Creator
 
 Ads AI Creator is an AI-powered platform that generates professional video advertisements from product images, descriptions, or scripts — no camera, studio, or video editing experience required. Users supply source material and the platform handles the rest: selecting or customizing an AI avatar, writing copy, adding voiceover in the chosen language, and exporting a finished video formatted for the target ad channel. The result is a production-ready ad in minutes rather than days. The platform is designed for teams and individuals who need consistent creative output at a volume that traditional production workflows cannot sustain.
 
@@ -36,87 +39,81 @@ Ads AI Creator is an AI-powered platform that generates professional video adver
 
 Ads AI Creator is built for marketers, e-commerce operators, and creative teams whose output demands outpace traditional production capacity. Performance marketers who run continuous creative refresh cycles will find the bulk generation and A/B tooling directly useful. E-commerce brand owners and dropshippers working with limited budgets get access to video ad production that was previously gated behind agency retainers or full production crews. Agencies handling multiple accounts benefit from the speed and language coverage when scaling client deliverables. The platform also suits growth-focused teams that want to maintain a presence across several ad channels simultaneously without expanding headcount to match the creative workload.
 
-## Core Site Functions
+## Tools
 
-- Image generation and editing workflows for prompts, references, and visual iteration.
+### `list_styles`
+Return the canonical list of image-generation styles or presets the site exposes. (Ads AI Creator)
 
-## Why This Site Is Good
+_Input:_ no parameters. _Returns:_ text/markdown.
 
-- The MCP points users to the official Ads AI Creator website instead of a third-party landing page.
-- It keeps the package lightweight and easy to install because everything is static and read-only.
-- It gives AI clients canonical links for docs, pricing, and support in one place.
-- Useful when users want fast visual output without switching between multiple tools.
+### `get_pricing`
+Return the canonical pricing entry point for Ads AI Creator.
 
-## Official Links
+_Input:_ no parameters. _Returns:_ text/markdown.
 
-- Website: https://adsaicreator.com
-- Docs: https://adsaicreator.com/docs
-- Pricing: https://adsaicreator.com
-- Contact: https://adsaicreator.com
-- Support: support@adsaicreator.com
+### `get_official_links`
+Return the canonical list of official links for Ads AI Creator (website, support, docs when available).
 
-## Site Metadata
+_Input:_ no parameters. _Returns:_ text/markdown.
 
-- Site ID: ads-ai-creator
-- Site Name: Ads AI Creator
-- Default language: en
-- Available languages: en
-- Feature tags: `image-gen`
+## Resources
 
-## MCP Resources
+- `site://ads-ai-creator/styles` — Supported image-generation styles and presets.
+- `site://ads-ai-creator/pricing` — Canonical pricing entry point.
+- `site://ads-ai-creator/faq` — Short FAQ generated from public site metadata.
+- `site://ads-ai-creator/links` — Canonical URLs to share with users.
 
-- `site://meta`
-- `site://pages/overview`
-- `site://pages/pricing`
-- `site://pages/faq`
-- `site://pages/links`
+## Installation
 
-## Why This MCP Is Useful
-
-- It is a real MCP package, not just a README-only repository.
-- It is lightweight enough for quick indexing and easy local installation.
-- It gives AI clients structured access to official website context and links.
-- It is simple to fork, publish, and maintain for directory submissions.
-
-## Quick Start
-
-Install dependencies:
+Clone the repository and point your MCP client at the local entry point.
 
 ```bash
+git clone https://github.com/<your-account>/ads-ai-creator-mcp.git
+cd ads-ai-creator-mcp
 pnpm install
 ```
 
-Run the server:
+### Claude Desktop
 
-```bash
-pnpm start
-```
-
-Run tests:
-
-```bash
-pnpm test
-```
-
-## Claude Desktop Example
+Add to `claude_desktop_config.json` (Settings → Developer → Edit Config):
 
 ```json
 {
   "mcpServers": {
-    "ads-ai-creator": {
-      "command": "pnpm",
+    "ads-ai-creator-mcp": {
+      "command": "node",
       "args": [
-        "--dir",
-        "/absolute/path/to/exports/ads-ai-creator",
-        "start"
+        "/absolute/path/to/ads-ai-creator-mcp/src/index.mjs"
       ]
     }
   }
 }
 ```
 
-## Directory Submission Notes
+### Cursor / Windsurf / Continue
 
-- Repo type: local `stdio` MCP
-- Maintenance model: generated from the MSA multi-site source
-- Primary goal: directory indexing, official link discovery, and lightweight client install
+Use the same `mcpServers` block in your client's MCP configuration file.
+
+### Debug with MCP Inspector
+
+```bash
+npx @modelcontextprotocol/inspector node src/index.mjs
+```
+
+## Official Links
+
+- Website: https://adsaicreator.com
+- Pricing: https://adsaicreator.com/pricing
+- Support: support@adsaicreator.com
+
+## Development
+
+```bash
+pnpm install
+pnpm start                 # run the server over stdio
+pnpm test                  # run the package tests
+```
+
+## License
+
+MIT

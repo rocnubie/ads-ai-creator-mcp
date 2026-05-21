@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Minimal read-only MCP for Ads AI Creator.",
+  "description": "MCP server for Ads AI Creator — canonical website knowledge for AI clients.",
   "homepage": "https://adsaicreator.com",
   "keywords": [
     "mcp",
     "modelcontextprotocol",
+    "claude",
+    "cursor",
+    "windsurf",
     "ads-ai-creator",
     "image-gen"
   ],
